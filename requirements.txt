@@ -1,4 +1,1 @@
-sklearn
-streamlit
-pickle
-pandas
+
