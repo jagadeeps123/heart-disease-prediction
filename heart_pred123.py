@@ -4,8 +4,6 @@ import pickle
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 
-# Load the data
-data = pd.read_csv("C:\\Users\\ASUS\\Downloads\\heart.csv")
 
 # Define mappings for categorical variables
 sex_mapping = {0: 'Female', 1: 'Male'}
@@ -25,17 +23,6 @@ data['exang'] = data['exang'].map(exang_mapping)
 data['slope'] = data['slope'].map(slope_mapping)
 data['thal'] = data['thal'].map(thal_mapping)
 
-# Prepare data
-X = pd.get_dummies(data[['age', 'trestbps', 'chol', 'thalach', 'oldpeak', 'ca']], drop_first=True)
-categorical_cols = ['sex', 'cp', 'fbs', 'restecg', 'exang', 'slope', 'thal']
-for col in categorical_cols:
-    X = pd.concat([X, pd.get_dummies(data[col], prefix=col, drop_first=True)], axis=1)
-y = data['target']
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-
-# Train Logistic Regression model
-logistic = LogisticRegression()
-logistic.fit(X_train, y_train)
 
 # Save Logistic Regression model using pickle
 with open('logistic_model.pkl', 'wb') as f:
